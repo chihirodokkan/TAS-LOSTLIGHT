@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Lost Light Unity Mono ; aligner le TFM avec les assemblies du jeu (netstandard 2.1). -->
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>LostLightTAS</AssemblyName>
+    <RootNamespace>LostLightTAS</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+
+    <!-- Surcharges possibles : /p:GameDir="D:\...\Lost Light" /p:BepInDir="D:\...\BepInEx\core" -->
+    <GameDir Condition="'$(GameDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Lost Light</GameDir>
+    <ManagedDir Condition="'$(ManagedDir)' == ''">$(GameDir)\Lost Light_Data\Managed</ManagedDir>
+    <BepInDir Condition="'$(BepInDir)' == ''">$(GameDir)\BepInEx\core</BepInDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- BepInEx 6 Unity Mono: Core fournit BepInEx ; l'assembly Mono fournit BaseUnityPlugin. -->
+    <Reference Include="BepInEx.Core">
+      <HintPath>$(BepInDir)\BepInEx.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="BepInEx.Unity.Mono">
+      <HintPath>$(BepInDir)\BepInEx.Unity.Mono.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <!-- Assemblies Unity du jeu et système d'entrée Input System (utilisés par Plugin.cs). -->
+    <Reference Include="$(ManagedDir)\UnityEngine*.dll" Condition="Exists('$(ManagedDir)\UnityEngine.CoreModule.dll')">
+      <HintPath>%(Identity)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.InputSystem">
+      <HintPath>$(ManagedDir)\Unity.InputSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.Cinemachine">
+      <HintPath>$(ManagedDir)\Unity.Cinemachine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
