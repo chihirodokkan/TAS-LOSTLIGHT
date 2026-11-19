@@ -1,4 +1,5 @@
-# Lost Light TAS (BepInEx 6 Mono, Windows)
+# Lost Light TAS (BepInEx 6 Mono, Windows) MAJ A VENIR
+
 
 Plugin TAS pour Lost Light : enregistrement et relecture d'inputs déterministes (clavier + caméra), savestates, détection de désynchro, édition de frames, analyse CSV et serveur TCP pour l'appli WPF.
 
